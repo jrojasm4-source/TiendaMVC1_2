@@ -1,8 +1,20 @@
-
 <nav>
     <a href="index.jsp">Inicio</a>
     <a href="login.jsp">Login</a>
     <a href="registro.jsp">Registro</a>
     <a href="productos.jsp">Productos</a>
+    <a href="carrito.jsp">Carrito</a>
+
+    <form action="auth" method="post"
+          style="display:inline;">
+        <input type="hidden"
+               name="accion"
+               value="logout">
+
+        <button type="submit">
+            Cerrar sesión
+        </button>
+    </form>
 </nav>
+
 <hr>

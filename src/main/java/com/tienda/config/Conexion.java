@@ -2,34 +2,43 @@ package com.tienda.config;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 
 public class Conexion {
 
     private static final String URL =
             "jdbc:mariadb://localhost:3306/tienda_mvc_java";
 
-    private static final String USER = "root";
+    private static final String USER =
+            "root";
 
-    private static final String PASSWORD = "";
+    private static final String PASSWORD =
+            "";
 
     public static Connection getConexion() {
 
+        Connection con = null;
+
         try {
 
-            Connection cn =
-                    DriverManager.getConnection(URL, USER, PASSWORD);
+            Class.forName(
+                    "org.mariadb.jdbc.Driver");
 
-            System.out.println("CONEXION EXITOSA");
+            con = DriverManager.getConnection(
+                    URL,
+                    USER,
+                    PASSWORD);
 
-            return cn;
+            System.out.println(
+                    "CONEXION EXITOSA");
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
 
-            System.out.println("CONEXION FALLIDA");
+            System.out.println(
+                    "CONEXION FALLIDA");
+
             e.printStackTrace();
-
-            return null;
         }
+
+        return con;
     }
 }

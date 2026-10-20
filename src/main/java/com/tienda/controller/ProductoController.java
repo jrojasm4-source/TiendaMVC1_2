@@ -1,13 +1,31 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.tienda.controller;
 
-/**
- *
- * @author JOSE YOVANY ROJAS M
- */
-public class ProductoController {
-    
+import com.tienda.dao.ProductoDAO;
+import com.tienda.modelo.Producto;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
+import java.util.List;
+
+@WebServlet("/productos")
+public class ProductoController extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest request,
+            HttpServletResponse response)
+            throws ServletException, IOException {
+
+        ProductoDAO dao = new ProductoDAO();
+
+        List<Producto> productos = dao.listar();
+
+        request.setAttribute("productos", productos);
+
+        request.getRequestDispatcher("/productos.jsp")
+               .forward(request, response);
+    }
 }

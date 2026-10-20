@@ -3,47 +3,54 @@ package com.tienda.dao;
 import com.tienda.modelo.Producto;
 import java.util.ArrayList;
 import java.util.List;
+import com.tienda.config.Conexion;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class ProductoDAO {
 
     public List<Producto> listar() {
 
-        List<Producto> lista = new ArrayList<>();
+    List<Producto> lista = new ArrayList<>();
 
-        Producto p1 = new Producto();
-        p1.setId(1);
-        p1.setNombre("Laptop Gamer");
-        p1.setDescripcion("Laptop Core i7");
-        p1.setPrecio(3500000);
-        p1.setStock(5);
-        p1.setFoto("laptop.jpg");
-        p1.setActivo(true);
+    try {
 
-        Producto p2 = new Producto();
-        p2.setId(2);
-        p2.setNombre("Mouse Gamer");
-        p2.setDescripcion("Mouse RGB");
-        p2.setPrecio(80000);
-        p2.setStock(20);
-        p2.setFoto("mouse.jpg");
-        p2.setActivo(true);
+        Connection con = Conexion.getConexion();
 
-        Producto p3 = new Producto();
-        p3.setId(3);
-        p3.setNombre("Teclado Mecánico");
-        p3.setDescripcion("Teclado RGB");
-        p3.setPrecio(150000);
-        p3.setStock(10);
-        p3.setFoto("teclado.jpg");
-        p3.setActivo(true);
+        String sql =
+                "SELECT * FROM productos WHERE activo = 1";
 
-        lista.add(p1);
-        lista.add(p2);
-        lista.add(p3);
+        PreparedStatement ps =
+                con.prepareStatement(sql);
 
-        return lista;
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+
+            Producto p = new Producto();
+
+            p.setId(rs.getInt("id_producto"));
+            p.setNombre(rs.getString("nombre"));
+            p.setDescripcion(rs.getString("descripcion"));
+            p.setPrecio(rs.getDouble("precio"));
+            p.setStock(rs.getInt("stock"));
+            p.setFoto(rs.getString("foto"));
+            p.setActivo(rs.getBoolean("activo"));
+
+            lista.add(p);
+        }
+
+        rs.close();
+        ps.close();
+        con.close();
+
+    } catch (Exception e) {
+        e.printStackTrace();
     }
 
+    return lista;
+}
     public Producto buscarPorId(int id) {
 
         for (Producto p : listar()) {

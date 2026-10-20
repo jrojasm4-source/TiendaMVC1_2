@@ -1,3 +1,4 @@
+com\tienda\servlet\AuthServlet.class
 com\tienda\modelo\Usuario.class
 com\tienda\dao\ProductoDAO.class
 com\tienda\config\Conexion.class
