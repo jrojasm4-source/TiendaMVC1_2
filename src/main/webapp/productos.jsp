@@ -9,68 +9,79 @@
 
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <title>Productos | Tienda MVC</title>
-        <link rel="stylesheet"
-              href="${pageContext.request.contextPath}/assets/css/styles.css">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <title>Productos | Tienda MVC</title>
 
-    <body>
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/assets/css/styles.css">
+</head>
 
-        <%@ include file="/WEB-INF/jspf/menu.jspf" %>
+<body>
 
-        <div class="container">
+<%@ include file="/WEB-INF/jspf/menu.jspf" %>
 
-            <h1>Catálogo de Productos</h1>
+<div class="container">
 
-            <div class="product-grid">
+    <h1>Catálogo de Productos</h1>
 
-                <c:forEach var="p" items="${productos}">
+    <div class="product-grid">
 
-                    <div class="product-card">
+        <c:forEach var="p" items="${productos}">
 
-                        <img src="${pageContext.request.contextPath}/assets/img/${p.foto.replace('.svg','.jpg')}"
-                             alt="${p.nombre}"
-                             class="product-image">
+            <div class="product-card">
 
-                        <h3>${p.nombre}</h3>
+                <img src="${pageContext.request.contextPath}/assets/img/${p.foto.replace('.svg','.jpg')}"
+                     alt="${p.nombre}"
+                     class="product-image">
 
-                        <p>${p.descripcion}</p>
+                <h3>${p.nombre}</h3>
 
-                        <p><strong>Precio:</strong> $ ${p.precio}</p>
+                <p>${p.descripcion}</p>
 
-                        <p><strong>Stock:</strong> ${p.stock}</p>
+                <p>
+                    <strong>
+                        Precio:
+                    </strong>
+                    $ ${p.precio}
+                </p>
 
-                        <form action="${pageContext.request.contextPath}/carrito"
-                              method="post">
+                <p>
+                    <strong>
+                        Stock:
+                    </strong>
+                    ${p.stock}
+                </p>
 
-                            <input type="hidden"
-                                   name="idProducto"
-                                   value="${p.id}">
+                <form action="${pageContext.request.contextPath}/carrito"
+                      method="post">
 
-                            <input type="number"
-                                   name="cantidad"
-                                   value="1"
-                                   min="1"
-                                   max="${p.stock}">
+                    <input type="hidden"
+                           name="idProducto"
+                           value="${p.id}">
 
-                            <button class="btn-primary"
-                                    type="submit">
+                    <input type="number"
+                           name="cantidad"
+                           value="1"
+                           min="1"
+                           max="${p.stock}">
 
-                                Agregar al carrito
+                    <button class="btn-primary"
+                            type="submit">
 
-                            </button>
+                        Agregar al carrito
 
-                        </form>
+                    </button>
 
-                    </div>
-
-                </c:forEach>
+                </form>
 
             </div>
 
-        </div>
+        </c:forEach>
 
-    </body>
+    </div>
+
+</div>
+
+</body>
 </html>

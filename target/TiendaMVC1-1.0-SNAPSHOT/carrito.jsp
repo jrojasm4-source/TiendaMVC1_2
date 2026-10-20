@@ -1,5 +1,14 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.tienda.modelo.ItemCarrito" %>
+<%
+if (session.getAttribute("usuario") == null) {
+
+    response.sendRedirect("login.jsp");
+
+    return;
+}
+%>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 
 <%
     List<ItemCarrito> carrito
@@ -61,11 +70,11 @@
                     </td>
 
                     <td>
-                        $ <%= item.getProducto().getPrecio()%>
+                        $ <%= String.format("%,.0f", item.getProducto().getPrecio())%> 
                     </td>
 
                     <td>
-                        $ <%= item.getSubtotal()%>
+                        $ <%= String.format("%,.0f", item.getSubtotal())%>
                     </td>
 
                 </tr>
@@ -82,7 +91,7 @@
 
                     <td>
                         <strong>
-                            $ <%= total%>
+                            $ <%= String.format("%,.0f", total)%>
                         </strong>
                     </td>
 
