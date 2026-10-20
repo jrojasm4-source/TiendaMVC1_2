@@ -1,33 +1,89 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.tienda.controller;
 
+import com.tienda.dao.ProductoDAO;
 import com.tienda.modelo.ItemCarrito;
+import com.tienda.modelo.Producto;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CarritoController {
+@WebServlet("/carrito")
+public class CarritoController extends HttpServlet {
 
-    private List<ItemCarrito> carrito =
-            new ArrayList<>();
+    @Override
+    protected void doPost(HttpServletRequest request,
+            HttpServletResponse response)
+            throws ServletException, IOException {
 
-    public void agregar(ItemCarrito item){
+        int idProducto =
+                Integer.parseInt(
+                        request.getParameter("idProducto"));
+
+        int cantidad =
+                Integer.parseInt(
+                        request.getParameter("cantidad"));
+
+        ProductoDAO dao =
+                new ProductoDAO();
+
+        Producto producto =
+                dao.buscarPorId(idProducto);
+
+        HttpSession sesion =
+                request.getSession();
+
+        List<ItemCarrito> carrito =
+                (List<ItemCarrito>)
+                sesion.getAttribute("carrito");
+
+        if (carrito == null) {
+
+            carrito = new ArrayList<>();
+
+        }
+
+        ItemCarrito item =
+                new ItemCarrito(
+                        producto,
+                        cantidad);
 
         carrito.add(item);
 
+        sesion.setAttribute(
+                "carrito",
+                carrito);
+
+        response.sendRedirect(
+                request.getContextPath()
+                + "/carrito.jsp");
     }
 
-    public List<ItemCarrito> listar(){
+    @Override
+    protected void doGet(HttpServletRequest request,
+            HttpServletResponse response)
+            throws ServletException, IOException {
 
-        return carrito;
+        String accion =
+                request.getParameter("accion");
 
-    }
+        if ("vaciar".equals(accion)) {
 
-    public void vaciar(){
+            HttpSession sesion =
+                    request.getSession();
 
-        carrito.clear();
+            sesion.removeAttribute("carrito");
 
+            response.sendRedirect(
+                    request.getContextPath()
+                    + "/carrito.jsp");
+        }
     }
 }

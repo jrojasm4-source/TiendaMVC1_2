@@ -1,26 +1,135 @@
-<%-- 
-    Document   : carrito
-    Created on : 7/10/2026, 11:30:15 p. m.
-    Author     : JOSE YOVANY ROJAS M
---%>
+<%@ page import="java.util.List" %>
+<%@ page import="com.tienda.modelo.ItemCarrito" %>
 
-<%@ page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    List<ItemCarrito> carrito
+            = (List<ItemCarrito>) session.getAttribute("carrito");
+%>
 
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>Carrito de Compras</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Carrito de Compras</title>
 
-    <h1>Carrito de Compras</h1>
+        <link rel="stylesheet"
+              href="${pageContext.request.contextPath}/assets/css/styles.css">
+    </head>
+    <body>
 
-    <p>No hay productos agregados al carrito.</p>
+        <%@ include file="/WEB-INF/jspf/menu.jspf" %>
 
-    <a href="productos.jsp">Ver Productos</a><br><br>
+        <div class="container">
 
-    <a href="index.jsp">Volver al Inicio</a>
+            <h1>Carrito de Compras</h1>
 
-</body>
+            <%
+                if (carrito == null || carrito.isEmpty()) {
+            %>
+
+            <p>No hay productos agregados.</p>
+
+            <%
+            } else {
+
+                double total = 0;
+            %>
+
+            <table border="1" width="100%">
+
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Subtotal</th>
+                </tr>
+
+                <%
+                    for (ItemCarrito item : carrito) {
+
+                        total += item.getSubtotal();
+                %>
+
+                <tr>
+
+                    <td>
+                        <%= item.getProducto().getNombre()%>
+                    </td>
+
+                    <td>
+                        <%= item.getCantidad()%>
+                    </td>
+
+                    <td>
+                        $ <%= item.getProducto().getPrecio()%>
+                    </td>
+
+                    <td>
+                        $ <%= item.getSubtotal()%>
+                    </td>
+
+                </tr>
+
+                <%
+                    }
+                %>
+
+                <tr>
+
+                    <td colspan="3">
+                        <strong>Total</strong>
+                    </td>
+
+                    <td>
+                        <strong>
+                            $ <%= total%>
+                        </strong>
+                    </td>
+
+                </tr>
+
+            </table>
+
+            <%
+                }
+            %>
+
+            <br>
+
+            <a href="${pageContext.request.contextPath}/productos">
+                Seguir comprando
+            </a>
+
+            <br><br>
+
+            <form action="${pageContext.request.contextPath}/carrito"
+                  method="get">
+
+                <input type="hidden"
+                       name="accion"
+                       value="vaciar">
+
+                <button type="submit"
+                        class="btn-primary">
+                    Vaciar carrito
+                </button>
+
+            </form>
+
+            <br><br>
+
+            <form action="${pageContext.request.contextPath}/finalizar"
+                  method="post">
+
+                <button type="submit"
+                        class="btn-primary">
+                    Finalizar Compra
+                </button>
+
+            </form>
+
+
+        </div>
+
+    </body>
 </html>

@@ -26,29 +26,31 @@ public class AuthServlet extends HttpServlet {
             HttpServletResponse response)
             throws ServletException, IOException {
 
-        String accion =
-                request.getParameter("accion");
+        String accion
+                = request.getParameter("accion");
+
+        System.out.println("ACCION = " + accion);
 
         if ("login".equals(accion)) {
 
-            String correo =
-                    request.getParameter("correo");
+            String correo
+                    = request.getParameter("correo");
 
-            String password =
-                    request.getParameter("password");
+            String password
+                    = request.getParameter("password");
 
-            AuthController auth =
-                    new AuthController();
+            AuthController auth
+                    = new AuthController();
 
-            boolean acceso =
-                    auth.autenticar(
+            boolean acceso
+                    = auth.autenticar(
                             correo,
                             password);
 
             if (acceso) {
 
-                HttpSession sesion =
-                        request.getSession();
+                HttpSession sesion
+                        = request.getSession();
 
                 sesion.setAttribute(
                         "usuario",
@@ -70,23 +72,31 @@ public class AuthServlet extends HttpServlet {
 
         } else if ("registro".equals(accion)) {
 
-            String nombre =
-                    request.getParameter("nombre");
+            System.out.println("ENTRO AL REGISTRO");
 
-            String correo =
-                    request.getParameter("correo");
+            String nombre
+                    = request.getParameter("nombre");
 
-            String password =
-                    request.getParameter("password");
+            String correo
+                    = request.getParameter("correo");
 
-            AuthController auth =
-                    new AuthController();
+            String password
+                    = request.getParameter("password");
 
-            boolean registrado =
-                    auth.registrar(
+            System.out.println("Nombre: " + nombre);
+            System.out.println("Correo: " + correo);
+
+            AuthController auth
+                    = new AuthController();
+
+            boolean registrado
+                    = auth.registrar(
                             nombre,
                             correo,
                             password);
+
+            System.out.println("Registrado = "
+                    + registrado);
 
             if (registrado) {
 
@@ -111,8 +121,8 @@ public class AuthServlet extends HttpServlet {
 
         } else if ("logout".equals(accion)) {
 
-            HttpSession sesion =
-                    request.getSession();
+            HttpSession sesion
+                    = request.getSession();
 
             sesion.invalidate();
 

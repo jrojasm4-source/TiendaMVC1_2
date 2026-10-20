@@ -1,4 +1,5 @@
 C:\Users\JOSE YOVANY ROJAS M\Documents\NetBeansProjects\TiendaMVC1\src\main\java\com\tienda\controller\ProductoController.java
+C:\Users\JOSE YOVANY ROJAS M\Documents\NetBeansProjects\TiendaMVC1\src\main\java\com\tienda\dao\PedidoDAO.java
 C:\Users\JOSE YOVANY ROJAS M\Documents\NetBeansProjects\TiendaMVC1\src\main\java\com\tienda\config\Conexion.java
 C:\Users\JOSE YOVANY ROJAS M\Documents\NetBeansProjects\TiendaMVC1\src\main\java\com\tienda\util\PruebaConexion.java
 C:\Users\JOSE YOVANY ROJAS M\Documents\NetBeansProjects\TiendaMVC1\src\main\java\com\tienda\controller\UsuarioController.java
@@ -6,6 +7,7 @@ C:\Users\JOSE YOVANY ROJAS M\Documents\NetBeansProjects\TiendaMVC1\src\main\java
 C:\Users\JOSE YOVANY ROJAS M\Documents\NetBeansProjects\TiendaMVC1\src\main\java\com\tienda\controller\AuthController.java
 C:\Users\JOSE YOVANY ROJAS M\Documents\NetBeansProjects\TiendaMVC1\src\main\java\com\tienda\servlet\AuthServlet.java
 C:\Users\JOSE YOVANY ROJAS M\Documents\NetBeansProjects\TiendaMVC1\src\main\java\com\tienda\modelo\Rol.java
+C:\Users\JOSE YOVANY ROJAS M\Documents\NetBeansProjects\TiendaMVC1\src\main\java\com\tienda\servlet\FinalizarCompraServlet.java
 C:\Users\JOSE YOVANY ROJAS M\Documents\NetBeansProjects\TiendaMVC1\src\main\java\com\tienda\modelo\ItemCarrito.java
 C:\Users\JOSE YOVANY ROJAS M\Documents\NetBeansProjects\TiendaMVC1\src\main\java\com\tienda\dao\ProductoDAO.java
 C:\Users\JOSE YOVANY ROJAS M\Documents\NetBeansProjects\TiendaMVC1\src\main\java\com\tienda\util\Hash.java

@@ -48,33 +48,40 @@ public class UsuarioDAO {
     }
 
     public boolean registrar(String nombre,
-                             String correo,
-                             String password) {
+                         String correo,
+                         String password) {
 
-        try {
+    try {
 
-            String sql =
-                    "INSERT INTO usuarios(nombre, correo, password_hash, rol_id) VALUES(?,?,?,?)";
+        String sql =
+        "INSERT INTO usuarios(nombre, correo, password_hash, id_rol) VALUES(?,?,?,?)";
 
-            con = Conexion.getConexion();
+        con = Conexion.getConexion();
 
-            ps = con.prepareStatement(sql);
+        System.out.println("CONEXION = " + con);
 
-            ps.setString(1, nombre);
-            ps.setString(2, correo);
-            ps.setString(3, Hash.sha256(password));
+        ps = con.prepareStatement(sql);
 
-            // Rol CLIENTE
-            ps.setInt(4, 2);
+        ps.setString(1, nombre);
+        ps.setString(2, correo);
+        ps.setString(3, Hash.sha256(password));
+        ps.setInt(4, 2);
 
-            return ps.executeUpdate() > 0;
+        System.out.println("INTENTANDO INSERTAR");
 
-        } catch (Exception e) {
+        int filas = ps.executeUpdate();
 
-            e.printStackTrace();
+        System.out.println("FILAS = " + filas);
 
-        }
+        return filas > 0;
 
-        return false;
+    } catch (Exception e) {
+
+        System.out.println("ERROR EN REGISTRO");
+
+        e.printStackTrace();
     }
+
+    return false;
+}
 }
